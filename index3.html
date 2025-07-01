@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishal Raut - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'slide-in': 'slideIn 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(-30px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
+                            '100%': { boxShadow: '0 0 30px rgba(59, 130, 246, 0.5)' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .smooth-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .smooth-hover:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(32, 74, 141, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(55, 179, 204, 0.1);
+            border-color: rgba(74, 167, 198, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .skill-progress {
+            transition: width 1s ease-in-out;
+        }
+
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .animate-on-scroll-2 {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .animate-on-scroll-2.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        #mobile-menu {
+            transition: transform 0.3s ease;
+            transform: translateX(100%);
+        }
+
+        #mobile-menu-overlay:not(.hidden) #mobile-menu {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full   z-50 glass">
+        <div class="container max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8 py-4 ">
+            <div class="flex justify-between ">
+                <div class="text-xl font-bold p-0.5 gradient-text">
+                    Vishal Raut
+                </div>
+                <div class="hidden md:flex space-x-8 ">
+                    <a href="#home" class="nav-link text-gray-300 hover:text-white">Home</a>
+                    <a href="#about" class="nav-link text-gray-300 hover:text-white">About</a>
+                    <a href="#projects" class="nav-link text-gray-300 hover:text-white">Projects</a>
+                    <a href="#contact" class="nav-link text-gray-300 hover:text-white">Contact</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white focus:outline-none ">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu-overlay" class="hidden fixed inset-0 w-full h-full z-50 bg-opacity-50">
+                <button id="mobile-menu-close" class="absolute top-4 right-4 text-white text-2xl focus:outline-none">
+                    <i class="fas fa-times mr-1"></i>
+                </button>
+                <div id="mobile-menu" class="glass md:hidden mt-16 w-full ml-auto p-6 space-y-2 relative "
+                    style="backdrop-filter: blur(50px); background: rgba(30, 41, 59, 0.55); border-radius: 0 0 15px 15px; border: 1px solid rgba(255,255,255,0.15);">
+
+                    <a href="#home" class="block py-1  text-gray-300 hover:text-white transition-colors">Home</a>
+                    <a href="#about" class="block py-2 text-gray-300 hover:text-white transition-colors">About</a>
+                    <a href="#projects" class="block py-2 text-gray-300 hover:text-white transition-colors">Projects</a>
+                    <a href="#contact" class="block py-2 text-gray-300 hover:text-white transition-colors">Contact</a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/20"></div>
+
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+            <div class="animate-fade-in">
+                <p class="text-blue-400 font-medium mb-4 tracking-wide uppercase text-sm">
+                    Frontend Developer and UI/UX Designer
+                </p>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text leading-tight">
+                    Vishal Raut
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-gray-300 font-light">
+                    Creating beautiful digital experiences
+                </p>
+                <p class="text-lg mb-12 text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                    I design and develop modern web applications with clean code,
+                    intuitive interfaces, and seamless user experiences.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#projects" class="btn-primary px-8 py-3 rounded-full font-medium text-white">
+                        View My Work
+                    </a>
+                    <a href="#contact" class="btn-secondary px-8 py-3 rounded-full font-medium text-white">
+                        Get In Touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-12 md:py-20 relative">
+        <div class="container max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">About Me</h2>
+                <p class="text-xl text-gray-400">i love to creating the ideas into visual's</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
+                <div class="glass rounded-2xl p-8 smooth-hover animate-on-scroll">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-400">About me</h3>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        I'm an ambitious student pursuing a BE in AI & DS currently i am in my second year, passionate
+                        about building innovative projects by integrating diverse technologies. I love creating
+                        intuitive, user-friendly applications that are not only functional but also impactful. Driven by
+                        the challenge of bringing ideas to life, I'm always eager to learn, experiment, and develop
+                        solutions that make a difference.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        As a student, I focus on building web projects that are both functional and visually appealing.
+                        I aim to create designs that not only meet user needs but also provide an engaging experience.
+                        I've worked on numerous personal projects where I applied my skills to ensure the end product is
+                        eye-catching, user-friendly, and aligned with the goals
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                    <div class="glass rounded-xl p-6 text-center smooth-hover animate-on-scroll">
+                        <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-code text-blue-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Frontend</h4>
+                        <p class="text-sm text-gray-400 mb-3">React, Vue, Html, tailwindcss,javaScript</p>
+                        <div class="bg-gray-700 rounded-full h-2">
+                            <div class="skill-progress bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full"
+                                data-width="90"></div>
+                        </div>
+                    </div>
+
+                    <div class="glass rounded-xl p-6 text-center smooth-hover animate-on-scroll">
+                        <div
+                            class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-server text-purple-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Backend</h4>
+                        <p class="text-sm text-gray-400 mb-3">Node.js <br><br></p>
+                        <div class="bg-gray-700 rounded-full h-2">
+                            <div class="skill-progress bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                                data-width="60"></div>
+                        </div>
+                    </div>
+
+                    <div class="glass rounded-xl p-6 text-center smooth-hover animate-on-scroll">
+                        <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-database text-green-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Database</h4>
+                        <p class="text-sm text-gray-400 mb-3">MongoDB, PostgreSQL</p>
+                        <div class="bg-gray-700 rounded-full h-2">
+                            <div class="skill-progress bg-gradient-to-r from-green-500 to-teal-500 h-2 rounded-full"
+                                data-width="50"></div>
+                        </div>
+                    </div>
+
+                    <div class="glass rounded-xl p-6 text-center smooth-hover animate-on-scroll">
+                        <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-code text-pink-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Programming</h4>
+                        <p class="text-sm text-gray-400 mb-3">Java ,C++, python, javaScript</p>
+                        <div class="bg-gray-700 rounded-full h-2">
+                            <div class="skill-progress bg-gradient-to-r from-pink-500 to-rose-500 h-2 rounded-full"
+                                data-width="70"></div>
+                        </div>
+                    </div>
+                    <div class="glass rounded-xl p-6 text-center smooth-hover animate-on-scroll">
+                        <div
+                            class="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-palette text-yellow-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Design</h4>
+                        <p class="text-sm text-gray-400 mb-3">Figma, Canva</p>
+                        <div class="bg-gray-700 rounded-full h-2">
+                            <div class="skill-progress bg-gradient-to-r from-yellow-500 to-orange-500 h-2 rounded-full"
+                                data-width="80"></div>
+                        </div>
+                    </div>
+                    <div class="glass rounded-xl p-6 text-center smooth-hover animate-on-scroll">
+                        <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-tools text-red-400"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Tools</h4>
+                        <p class="text-sm text-gray-400 mb-3">VS code, Git/Github,Figma, Canva,Vercel</p>
+                        <div class="bg-gray-700 rounded-full h-2">
+                            <div class="skill-progress bg-gradient-to-r from-rose-500 to-red-500 h-2 rounded-full"
+                                data-width="80"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-12 md:py-20 relative">
+        <div class="container max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Featured Projects</h2>
+                <p class="text-xl text-gray-400">Some of my recent work</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Project 1 -->
+                <div class="glass rounded-2xl overflow-hidden project-card animate-on-scroll">
+                    <div class="bg-gradient-to-br from-blue-600 to-blue-400"><img src="DAY94.png"
+                            class="p-6 smooth-hover" alt="Task-Manager" loading="lazy"></div>
+
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-blue-400">Task-Manager</h3>
+                        <p class="text-gray-300 mb-4 text-sm leading-relaxed">
+                            A modern e-commerce solution with React, Node.js, and MongoDB.
+                            Features user authentication, payment integration, and admin dashboard.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs">React</span>
+                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs">Node.js</span>
+                            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs">MongoDB</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors text-sm">
+                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors text-sm">
+                                <i class="fab fa-github mr-1"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass rounded-2xl overflow-hidden project-card animate-on-scroll">
+                    <div class="bg-gradient-to-br from-blue-600 to-blue-400"><img src="DAY94.png"
+                            class="p-6 smooth-hover" alt="Task-Manager" loading="lazy"></div>
+
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-blue-400">Task-Manager</h3>
+                        <p class="text-gray-300 mb-4 text-sm leading-relaxed">
+                            A modern e-commerce solution with React, Node.js, and MongoDB.
+                            Features user authentication, payment integration, and admin dashboard.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs">React</span>
+                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs">Node.js</span>
+                            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs">MongoDB</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors text-sm">
+                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors text-sm">
+                                <i class="fab fa-github mr-1"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass rounded-2xl overflow-hidden project-card animate-on-scroll">
+                    <div class="bg-gradient-to-br from-blue-600 to-blue-400"><img src="DAY94.png"
+                            class="p-6 smooth-hover" alt="Task-Manager" loading="lazy"></div>
+
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3 text-blue-400">Task-Manager</h3>
+                        <p class="text-gray-300 mb-4 text-sm leading-relaxed">
+                            A modern e-commerce solution with React, Node.js, and MongoDB.
+                            Features user authentication, payment integration, and admin dashboard.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs">React</span>
+                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-xs">Node.js</span>
+                            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs">MongoDB</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors text-sm">
+                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-gray-300 transition-colors text-sm">
+                                <i class="fab fa-github mr-1"></i> Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-12 md:py-20 relative">
+        <div class="container max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8">
+            <div class="text-center mb-16 animate-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Get In Touch</h2>
+                <p class="text-xl text-gray-400">Let's work together on your next project</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
+                <!-- Contact Info -->
+                <div class="space-y-8  animate-on-scroll-2">
+                    <div class="glass smooth-hover  rounded-2xl p-8">
+                        <h3 class=" text-2xl font-bold mb-6 text-blue-400">Let's Connect</h3>
+                        <p class="text-gray-300 mb-8 leading-relaxed">
+                            I'm always interested in new opportunities and exciting projects.
+                            Whether you have a question or just want to say hi, feel free to reach out!
+                        </p>
+
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-envelope text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 text-sm">Email</p>
+                                    <a href="mailto:vishalraut.contact@gmail.com"
+                                        class="text-white text-sm hover:underline">
+                                        vishalraut.contact@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+
+
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-phone text-green-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 text-sm">Phone</p>
+                                    <p class="text-white">+91 9890584055</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-map-marker-alt text-purple-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 text-sm">Maharashtra ,India</p>
+                                    <p class="text-white">Nashik</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex space-x-4 mt-8">
+                            <a href="#"
+                                class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-colors">
+                                <i class="fab fa-linkedin text-blue-400"></i>
+                            </a>
+                            <a href="https://github.com/VishalRaut2106"
+                                class="w-12 h-12 bg-gray-500/20 rounded-lg flex items-center justify-center hover:bg-gray-500/30 transition-colors">
+                                <i class="fab fa-github text-gray-400"></i>
+                            </a>
+                            <a href=""
+                                class="w-12 h-12 bg-blue-400/20 rounded-lg flex items-center justify-center hover:bg-blue-400/30 transition-colors">
+                                <i class="fab fa-instagram text-rose-300"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Contact Form -->
+                <div class="smooth-hover glass rounded-2xl p-8 animate-on-scroll">
+                    <form action="https://formsubmit.co/vishalraut.contact@gmail.com" method="POST" id="contact-form"
+                        class="space-y-6">
+
+                        <!-- ✅ Hidden Inputs -->
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_autoresponse"
+                            value="Thanks for reaching out, Vishal will get back to you soon!">
+                        <input type="hidden" name="_subject" value="New Message from Portfolio Contact Form">
+                        <!-- ✅ Redirect to Thank You Page -->
+                        <input type="hidden" name="_next" value="thank-you.html">
+
+                        <!-- Name -->
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                            <input type="text" id="name" name="name" required
+                                class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-blue-400 transition-colors text-white placeholder-gray-400"
+                                placeholder="Your Name">
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                            <input type="email" id="email" name="email" required
+                                class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-blue-400 transition-colors text-white placeholder-gray-400"
+                                placeholder="Enter your Email">
+                        </div>
+
+                        <!-- Subject -->
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject" required
+                                class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-blue-400 transition-colors text-white placeholder-gray-400"
+                                placeholder="Enter the Subject">
+                        </div>
+
+                        <!-- Message -->
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" required
+                                class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-blue-400 transition-colors text-white placeholder-gray-400 resize-none"
+                                placeholder="Tell me about your project..."></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full btn-primary px-8 py-3 rounded-lg font-medium text-white">
+                            Send Message
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-gray-800/50 border-t border-gray-700">
+        <div class="container max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8 text-center">
+            <p class="text-gray-400">
+
+            </p>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <!-- (Modal removed for real submission) -->
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+        const barIcon = mobileMenuBtn.querySelector('.fa-bars');
+        const timesIcon = mobileMenuBtn.querySelector('.fa-times');
+
+        // Open menu
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuOverlay.classList.remove('hidden');
+            barIcon.classList.add('hidden');
+            timesIcon.classList.remove('hidden');
+        });
+
+        // Close menu function
+        function closeMobileMenu() {
+            mobileMenuOverlay.classList.add('hidden');
+            barIcon.classList.remove('hidden');
+            timesIcon.classList.add('hidden');
+        }
+
+        // Cross button close
+        mobileMenuCloseBtn.addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking outside the menu (overlay area)
+        // This ensures clicking anywhere on the overlay except the menu closes the menu
+        mobileMenuOverlay.addEventListener('click', function (e) {
+            const isClickInsideMenu = mobileMenu.contains(e.target);
+            if (!isClickInsideMenu) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    mobileMenuOverlay.classList.add('hidden');
+                }
+            });
+        });
+
+        // Active navigation highlighting
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        });
+
+        // Select  animation classes
+        document.querySelectorAll('.animate-on-scroll, .animate-on-scroll-2').forEach(el => {
+            observer.observe(el);
+        });
+
+
+        // Animate skill progress bars
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBar = entry.target.querySelector('.skill-progress');
+                    const width = progressBar.getAttribute('data-width');
+                    setTimeout(() => {
+                        progressBar.style.width = width + '%';
+                    }, 300);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.glass').forEach(el => {
+            if (el.querySelector('.skill-progress')) {
+                skillObserver.observe(el);
+            }
+        });
+
+        // Contact form handling (show popup)
+        // (Removed: let the form submit normally)
+
+        // Close modal logic
+        // (Removed: modal is gone)
+    </script>
+</body>
+
+</html>
